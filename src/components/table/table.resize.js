@@ -27,8 +27,8 @@ export function resizeHandler($root, event) {
             delta = coordsResize.right - coords.right
             value = coordsParent.width + delta
             $parent.css({width: `${value}px`})
-            const index = $parent.data.index
-            const cells = $root.findAll(`[data-index="${index}"]`)
+            const col = $parent.data.col
+            const cells = $root.findAll(`[data-col="${col}"]`)
             cells.forEach(el => el.style.width = value + 'px')
         } else {
             delta = coordsResize.bottom - coords.bottom

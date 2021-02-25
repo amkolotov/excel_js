@@ -3,15 +3,23 @@ const CODES = {
     Z: 90
 }
 
-function createCell(_, index) {
-    return `
-    <div class="cell" contenteditable="" data-index="${index}"></div>
-    `
+// function createCell(row, col) {
+//     return `
+//     <div class="cell" contenteditable="" data-col="${col}" data-row="${row}"></div>
+//     `
+// }
+
+function createCell(row) {
+    return function (_, col) {
+        return `
+        <div class="cell" contenteditable="" data-col="${col}" data-id="${row}:${col}" data-type="cell"></div>
+        `
+    }
 }
 
-function createCol(char, index) {
+function createCol(char, col) {
     return `
-        <div class="column" data-type="resizable" data-index="${index}">
+        <div class="column" data-type="resizable" data-col="${col}">
             ${char}
             <div class="col-resize" data-resize="col"></div>
         </div>
@@ -39,13 +47,6 @@ function toChar(_, index) {
 export function createTable(rowsCount = 15) {
     const colsCount = CODES.Z - CODES.A + 1
     const rows = []
-    // const cols = []
-    // const cells = []
-
-    // for (let i = 0; i < colsCount; i++) {
-    //     cols.push(createCol(String.fromCharCode(CODES.A + i)))
-    // }
-    // rows.push(createRow(cols.join('')))
 
     const cols = new Array(colsCount)
         .fill('')
@@ -55,16 +56,13 @@ export function createTable(rowsCount = 15) {
 
     rows.push(createRow(null, cols))
 
-    // for (let i = 0; i < colsCount; i++) {
-    //     cells.push(createCell())
-    // }
-
-    for (let i = 0; i < rowsCount; i++) {
+    for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(createCell)
+            // .map((_, col) => createCell(row, col))
+            .map(createCell(row))
             .join('')
-        rows.push(createRow(i + 1, cells))
+        rows.push(createRow(row + 1, cells))
     }
     return rows.join('')
 }
