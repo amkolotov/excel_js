@@ -22,6 +22,7 @@ export function storage(key, data) {
     return localStorage.setItem(key, JSON.stringify(data))
 }
 
+
 export function isEqual(a, b) {
     if (typeof a === 'object' && typeof b === 'object') {
         return JSON.stringify(a) === JSON.stringify(b)
@@ -51,4 +52,17 @@ export function debounce(fn, wait) {
         timeout = setTimeout(later, wait)
     }
 
+}
+
+export function clone(obj) {
+    return JSON.parse(JSON.stringify(obj))
+}
+
+export function getDate() {
+    const date = new Date()
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+}
+
+export function preventDefault(event) {
+    event.preventDefault()
 }

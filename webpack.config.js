@@ -4,9 +4,11 @@ const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = (env, argv) => {
     const isProd = argv.mode === 'production'
+    // const isProd = process.env.NODE_ENV === 'production'
     const isDev = !isProd
 
     const filename = (ext) => isProd ? `[name].[contenthash].bundles.${ext}` : `[name].bundles.${ext}`
@@ -28,6 +30,9 @@ module.exports = (env, argv) => {
                 filename: filename('css')
             }),
             new CleanWebpackPlugin(),
+            new webpack.DefinePlugin({
+                PRODUCTION_MODE: isProd
+            })
         ]
         if (isDev) {
             base.push(new ESLintPlugin())
