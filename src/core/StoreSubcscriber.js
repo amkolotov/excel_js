@@ -23,6 +23,10 @@ export class StoreSubscriber {
 
             })
             this.prevState = this.store.getState()
+
+            if (!PRODUCTION_MODE) {
+                window['redux'] = this.prevState
+            }
         })
     }
 
