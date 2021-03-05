@@ -1,7 +1,5 @@
-import {ActiveRoute} from "@/core/routes/ActiveRoute";
-import {DashboardPage} from "@/pages/DashboardPage";
-
-const {$} = require("@/core/dom");
+import {ActiveRoute} from "./ActiveRoute";
+import {$} from "../dom";
 
 export class Router {
     constructor(selector, routes) {
@@ -32,7 +30,7 @@ export class Router {
 
         const Page = this.routes[ActiveRoute.page]
         if (!Page){
-            this.page = new DashboardPage(ActiveRoute.param)
+            this.page = new this.routes.dashboard
             window.location.href='#dashboard'
         } else {
             this.page = new Page(ActiveRoute.param)

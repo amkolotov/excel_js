@@ -1,16 +1,17 @@
 module.exports = {
-    parser: '@babel/eslint-parser',
-    parserOptions: {
-        babelOptions: {
-            configFile: './src/babel.config.json',
+    "parser": '@babel/eslint-parser',
+    "parserOptions": {
+        "babelOptions": {
+            "configFile": './src/babel.config.json',
         },
-        env: {
-            browser: true,
-            node: true,
-            es6: true
+        "env": {
+            "browser": true,
+            "node": true,
+            "es6": true
         },
-        extends: ['eslint:recommended', 'google'],
-        rules: {
+        "extends": ['eslint:recommended', 'google'],
+        "plugins": ["jest"],
+        "rules": {
             'semi': 'off',
             'comma-dangle': 'off',
             'require-jsdoc': 'off'
